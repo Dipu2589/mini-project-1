@@ -6,6 +6,6 @@ terraform {
     client_id            = "d222ab5-aa54-4574-b53c-81a48e67c153"
     storage_account_name = "aztfdevstatefile"
     container_name       = "tfstate"
-    key                  = "dev.terraform.tfstate"
+    key                  = "terraform.tfstate"
   }
 }
