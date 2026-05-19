@@ -24,9 +24,9 @@ module "loadbalancer" {
 module "vmss" {
   source = "./modules/vmss"
 
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
-  subnet_id                = module.networks.subnet_id
+  resource_group_name        = azurerm_resource_group.rg.name
+  location                   = azurerm_resource_group.rg.location
+  subnet_id                  = module.networks.subnet_id
   lb_backend_address_pool_id = module.loadbalancer.lb_backend_address_pool_id
-  lb_id                    = module.loadbalancer.lb_id
+  lb_id                      = module.loadbalancer.lb_id
 }
