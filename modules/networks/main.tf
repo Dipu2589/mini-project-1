@@ -20,7 +20,23 @@ resource "azurerm_network_security_group" "subnet_nsg" {
   resource_group_name = var.resource_group_name
   location            = var.location
   
-security_rule {
+dynamic "security_rule" {
+  for_each = var.sg_ports
+  content {
+    name = "allow_tcp-${security_rule.value}"
+    priority = 100 + security_rule.key
+    direction = "Inbound"
+    access = "Allow"
+    protocol = "Tcp"
+    source_port_range = "*"
+    destination_port_range = security_rule.value
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+ }
+}
+
+/* security_rule {
     name                       = "allow-http"
     priority                   = 100
     direction                  = "Inbound"
@@ -54,8 +70,9 @@ security_rule {
     destination_port_range     = "22"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
-  }
+  }  
 }
+*/
 
 # Associates NSG to Subnet
 resource "azurerm_subnet_network_security_group_association" "subnet_nsg_assoc" {

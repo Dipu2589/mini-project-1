@@ -19,3 +19,8 @@ variable "subnet_address_prefix" {
   type        = string
   default     = "10.0.0.0/20"
 }
+
+variable "sg_ports" {
+  type = list(number)
+  default = [ 443,80,22 ]
+}
